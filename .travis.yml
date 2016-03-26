@@ -1,0 +1,51 @@
+language: python
+python:
+- '3.4'
+addons:
+  apt:
+    packages:
+    - realpath
+    - pv
+notifications:
+  email: false
+before_install:
+- env
+install: 
+before_script:
+- PATH=${PATH//:\.\/node_modules\/\.bin/}
+- curl -o Makefile https://raw.githubusercontent.com/FX31337/FX-BT-Data-Test/master/Makefile
+script:
+- set -e
+- travis_wait 60 make
+after_success: 
+after_failure:
+- sudo apt-get -qy install tree && - tree -d -L 6
+- env
+after_script:
+- pwd
+deploy:
+  provider: releases
+  api_key:
+    secure: wZfruJ+KVDfyOGnJbhE2PiYmcHoSY470hQEumXeQ+pFnv+803xXmKBJ/VmCZtbbbVR0hxuucsgpM7srCn5Emz2PkpiCUKwaXTKZqnk+L3BVHdlP2gY0wZoHKRh5znNeYB24XyANlE5IEUAot7B5vmBj6Yo/F0zirIm8hltjFryqQhSNWyGyzhoE4Mkpp2Xwlqr4SqHhkgHSN/WphLsbmZGWHVSYpJAot4nGHlxwZF0Xw0RIRSmO3wCWCHVQIYI5AOOjZJre9t+WaKHfOqlmvrqgw1y6PzLSAtcApUFJoy7DGNTkpQTTuXpU+MuDoacUyaelMbXxGQm68fxtZx4gtEv3iCWjlRQFkYMqjYpaf5FkgW/a9L2Y+DiW/f1QeJzstyZn3Im6MrL9wPat7V+VhhRTv1+Fnpj1+hqTuKydtOtBVvCAPwDZO0jjXINjkhzEMwLP1toHSkGP6G10G4ZP2CMTtxcCXSvoZpeGroZm6dgNKA/yeLwYzg/TrQBM5152EcKtyOH5Tv5Vs7MHEUKT+cZ249cpLmWH0DSg2Hws9gQk129QAKBzG/36ENLalhrC8uCl5agxFOyfd79SvI8aevrMZgPIYJ2UZELVGD7wplIiMHMhbqXlThRt7gfrnzCBGhP4foCaHG9DtKlqJEDumZNpfCtI/YHYyx6chEtTpgpk=
+  file:
+    - "EURUSD1.hst.gz"
+    - "EURUSD5.hst.gz"
+    - "EURUSD15.hst.gz"
+    - "EURUSD30.hst.gz"
+    - "EURUSD60.hst.gz"
+    - "EURUSD240.hst.gz"
+    - "EURUSD10080.hst.gz"
+    - "EURUSD43200.hst.gz"
+    - "EURUSD1_0.fxt.gz"
+    - "EURUSD5_0.fxt.gz"
+    - "EURUSD15_0.fxt.gz"
+    - "EURUSD30_0.fxt.gz"
+    - "EURUSD60_0.fxt.gz"
+    - "EURUSD240_0.fxt.gz"
+    - "EURUSD10080_0.fxt.gz"
+    - "EURUSD43200_0.fxt.gz"
+  on:
+    repo: FX31337/FX-BT-Data-EURUSD-DS
+    tags: true
+after_deploy:
+- make clean
