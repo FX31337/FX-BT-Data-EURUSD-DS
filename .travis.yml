@@ -1,6 +1,10 @@
 language: python
 python:
 - '3.4'
+env:
+  matrix:
+    - FORMAT=hst
+    - FORMAT=fxt
 addons:
   apt:
     packages:
@@ -10,8 +14,6 @@ notifications:
   email: false
 before_install:
 - env
-- sudo sysctl -w kernel.shmmax=536870912
-- sudo sysctl -w kernel.shmall=536870912
 - free -m
 install: 
 before_script:
@@ -19,7 +21,7 @@ before_script:
 - curl -o Makefile https://raw.githubusercontent.com/FX31337/FX-BT-Data-Test/master/Makefile
 script:
 - set -e
-- make
+- make $FORMAT
 after_success: 
 after_failure:
 - sudo apt-get -qy install tree && - tree -d -L 6
