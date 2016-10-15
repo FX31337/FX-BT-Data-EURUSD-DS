@@ -1,3 +1,3 @@
 # Forex Historical Data.
 
-Historical Data Feed for EURUSD pair for 2013.
+Historical Data Feed for EURUSD pair for 2011-2015.
