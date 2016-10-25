@@ -3,8 +3,24 @@ python:
 - '3.4'
 env:
   matrix:
-    - FORMAT=hst
-    - FORMAT=fxt
+    - FORMAT=hst TF=M1
+    - FORMAT=hst TF=M5
+    - FORMAT=hst TF=M15
+    - FORMAT=hst TF=M30
+    - FORMAT=hst TF=H1
+    - FORMAT=hst TF=H4
+    - FORMAT=hst TF=D1
+    - FORMAT=hst TF=W1
+    - FORMAT=hst TF=MN
+    - FORMAT=fxt TF=M1
+    - FORMAT=fxt TF=M5
+    - FORMAT=fxt TF=M15
+    - FORMAT=fxt TF=M30
+    - FORMAT=fxt TF=H1
+    - FORMAT=fxt TF=H4
+    - FORMAT=fxt TF=D1
+    - FORMAT=fxt TF=W1
+    - FORMAT=fxt TF=MN
 addons:
   apt:
     packages:
