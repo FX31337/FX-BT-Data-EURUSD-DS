@@ -1,3 +1,3 @@
 # Forex Historical Data for EURUSD.
 
-Choose appropriate branch to fetch the data.
+Historical Data Feed for EURUSD pair for 2015.
