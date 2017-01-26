@@ -4,14 +4,26 @@ python:
 env:
   matrix:
     - FORMAT=hst TF=M1
+    - FORMAT=hst TF=M2
+    - FORMAT=hst TF=M3
+    - FORMAT=hst TF=M4
     - FORMAT=hst TF=M5
+    - FORMAT=hst TF=M6
+    - FORMAT=hst TF=M10
+    - FORMAT=hst TF=M12
     - FORMAT=hst TF=M15
+    - FORMAT=hst TF=M20
     - FORMAT=hst TF=M30
     - FORMAT=hst TF=H1
+    - FORMAT=hst TF=H2
+    - FORMAT=hst TF=H3
     - FORMAT=hst TF=H4
+    - FORMAT=hst TF=H6
+    - FORMAT=hst TF=H8
+    - FORMAT=hst TF=H12
     - FORMAT=hst TF=D1
     - FORMAT=hst TF=W1
-    - FORMAT=hst TF=MN
+    - FORMAT=hst TF=MN1
     - FORMAT=fxt TF=M1
     - FORMAT=fxt TF=M5
     - FORMAT=fxt TF=M15
@@ -20,7 +32,7 @@ env:
     - FORMAT=fxt TF=H4
     - FORMAT=fxt TF=D1
     - FORMAT=fxt TF=W1
-    - FORMAT=fxt TF=MN
+    - FORMAT=fxt TF=MN1
 addons:
   apt:
     packages:
@@ -37,7 +49,7 @@ script:
 - make $FORMAT
 after_success: 
 after_failure:
-- sudo apt-get -qy install tree && - tree -d -L 6
+- sudo apt-get -qy install tree && tree -d -L 6
 - env
 after_script:
 - pwd
