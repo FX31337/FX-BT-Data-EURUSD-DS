@@ -1,0 +1,70 @@
+language: python
+python:
+- '3.4'
+env:
+  matrix:
+    - FORMAT=hst TF=M1
+    - FORMAT=hst TF=M2
+    - FORMAT=hst TF=M3
+    - FORMAT=hst TF=M4
+    - FORMAT=hst TF=M5
+    - FORMAT=hst TF=M6
+    - FORMAT=hst TF=M10
+    - FORMAT=hst TF=M12
+    - FORMAT=hst TF=M15
+    - FORMAT=hst TF=M20
+    - FORMAT=hst TF=M30
+    - FORMAT=hst TF=H1
+    - FORMAT=hst TF=H2
+    - FORMAT=hst TF=H3
+    - FORMAT=hst TF=H4
+    - FORMAT=hst TF=H6
+    - FORMAT=hst TF=H8
+    - FORMAT=hst TF=H12
+    - FORMAT=hst TF=D1
+    - FORMAT=hst TF=W1
+    - FORMAT=hst TF=MN1
+    - FORMAT=fxt TF=M1
+    - FORMAT=fxt TF=M5
+    - FORMAT=fxt TF=M15
+    - FORMAT=fxt TF=M30
+    - FORMAT=fxt TF=H1
+    - FORMAT=fxt TF=H4
+    - FORMAT=fxt TF=D1
+    - FORMAT=fxt TF=W1
+    - FORMAT=fxt TF=MN1
+addons:
+  apt:
+    packages:
+    - realpath
+    - pv
+notifications:
+  email: false
+before_install:
+- set -e
+install: 
+before_script:
+- curl -o Makefile https://raw.githubusercontent.com/FX31337/FX-BT-Data-Test/master/Makefile
+script:
+- make $FORMAT
+after_success: 
+after_failure:
+- sudo apt-get -qy install tree && tree -d -L 6
+- env
+after_script:
+- pwd
+deploy:
+  provider: releases
+  api_key:
+    secure: wZfruJ+KVDfyOGnJbhE2PiYmcHoSY470hQEumXeQ+pFnv+803xXmKBJ/VmCZtbbbVR0hxuucsgpM7srCn5Emz2PkpiCUKwaXTKZqnk+L3BVHdlP2gY0wZoHKRh5znNeYB24XyANlE5IEUAot7B5vmBj6Yo/F0zirIm8hltjFryqQhSNWyGyzhoE4Mkpp2Xwlqr4SqHhkgHSN/WphLsbmZGWHVSYpJAot4nGHlxwZF0Xw0RIRSmO3wCWCHVQIYI5AOOjZJre9t+WaKHfOqlmvrqgw1y6PzLSAtcApUFJoy7DGNTkpQTTuXpU+MuDoacUyaelMbXxGQm68fxtZx4gtEv3iCWjlRQFkYMqjYpaf5FkgW/a9L2Y+DiW/f1QeJzstyZn3Im6MrL9wPat7V+VhhRTv1+Fnpj1+hqTuKydtOtBVvCAPwDZO0jjXINjkhzEMwLP1toHSkGP6G10G4ZP2CMTtxcCXSvoZpeGroZm6dgNKA/yeLwYzg/TrQBM5152EcKtyOH5Tv5Vs7MHEUKT+cZ249cpLmWH0DSg2Hws9gQk129QAKBzG/36ENLalhrC8uCl5agxFOyfd79SvI8aevrMZgPIYJ2UZELVGD7wplIiMHMhbqXlThRt7gfrnzCBGhP4foCaHG9DtKlqJEDumZNpfCtI/YHYyx6chEtTpgpk=
+  file:
+    - "*.hst.gz"
+    - "*.fxt.gz"
+  file_glob: true
+  skip_cleanup: true
+  overwrite: true
+  on:
+    repo: FX31337/FX-BT-Data-EURUSD-DS
+    tags: true
+after_deploy:
+- make clean
